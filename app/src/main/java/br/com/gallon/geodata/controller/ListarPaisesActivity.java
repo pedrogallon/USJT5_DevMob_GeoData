@@ -5,23 +5,21 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import java.util.ArrayList;
 
 import br.com.gallon.geodata.R;
 import br.com.gallon.geodata.model.Pais;
+import br.com.gallon.geodata.model.PaisAdapter;
 
-import static br.com.gallon.geodata.model.Data.getNomes;
-import static br.com.gallon.geodata.model.Data.listarPaises;
+import static br.com.gallon.geodata.controller.MainActivity.LISTA_PAISES;
 
 
 public class ListarPaisesActivity extends Activity {
     ArrayList<Pais> paises;
     ListView listView;
     Activity context;
-    String continente;
     public static final String PAIS = "br.usjt.devweb.servicedesk_aula03.pais";
 
 
@@ -30,13 +28,11 @@ public class ListarPaisesActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listar_paises);
-        Intent intent = getIntent();
-        continente = intent.getStringExtra(MainActivity.CONTINENTE);
-        paises = listarPaises(continente);
-        ArrayList<String> nomesPaises = getNomes(paises, continente);
+        paises = (ArrayList<Pais>) getIntent().getSerializableExtra(LISTA_PAISES);
         listView = findViewById(R.id.lista_paises);
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, nomesPaises);
+        PaisAdapter adapter = new PaisAdapter(this, paises);
         listView.setAdapter(adapter);
+
         context = this;
         listView.setOnItemClickListener(
             new AdapterView.OnItemClickListener(){

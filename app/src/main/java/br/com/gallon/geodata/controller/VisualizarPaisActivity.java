@@ -10,6 +10,7 @@ import br.com.gallon.geodata.model.Pais;
 
 import static br.com.gallon.geodata.controller.ListarPaisesActivity.PAIS;
 
+
 public class VisualizarPaisActivity extends Activity {
     TextView txt;
 
