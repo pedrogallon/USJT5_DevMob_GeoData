@@ -20,7 +20,7 @@ public class ListarPaisesActivity extends Activity {
     ArrayList<Pais> paises;
     ListView listView;
     Activity context;
-    public static final String PAIS = "br.usjt.devweb.servicedesk_aula03.pais";
+    public static final String PAIS = "br.com.gallon.geodata.controller.ListarPaisesActivity.pais";
 
 
 

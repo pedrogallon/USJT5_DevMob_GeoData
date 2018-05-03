@@ -12,12 +12,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import br.com.gallon.geodata.R;
-import br.com.gallon.geodata.model.Data;
 import br.com.gallon.geodata.model.Pais;
+import br.com.gallon.geodata.model.PaisNetwork;
 
 
 public class MainActivity extends Activity {
-    public static final String LISTA_PAISES = "br.usjt.devweb.servicedesk_aula03.MainActivity.ListaPaises";
+    public static final String LISTA_PAISES = "br.com.gallon.geodata.controller..MainActivity.ListaPaises";
     private Spinner spinContinente;
     private Context context;
 
@@ -31,11 +31,32 @@ public class MainActivity extends Activity {
 
     public void listarPaises(View view) {
         String continente = spinContinente.getSelectedItem().toString();
-
-        Intent intent = new Intent(context, ListarPaisesActivity.class);
-        intent.putExtra(LISTA_PAISES, Data.listarPaises(continente));
-        startActivity(intent);
-
+        if (continente.equals("Todos")) {
+            new JSONPaises().execute("https://restcountries.eu/rest/v2/all");
+        } else {
+            new JSONPaises().execute("https://restcountries.eu/rest/v2/region/" + continente);
+        }
     }
 
+    private class JSONPaises extends AsyncTask<String, Void, ArrayList<Pais>> {
+
+
+        @Override
+        protected ArrayList<Pais> doInBackground(String... strings) {
+            ArrayList<Pais> paises = new ArrayList<>();
+            try {
+                paises = PaisNetwork.buscarPaises(strings[0]);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return paises;
+        }
+
+        protected void onPostExecute(ArrayList<Pais> paises) {
+            Intent intent = new Intent(context, ListarPaisesActivity.class);
+            intent.putExtra(LISTA_PAISES, paises);
+            startActivity(intent);
+        }
+
+    }
 }
