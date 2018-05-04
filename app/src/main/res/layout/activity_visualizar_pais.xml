@@ -5,12 +5,37 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="br.com.gallon.geodata.controller.VisualizarPaisActivity">
+    tools:context="br.com.gallon.geodata.controller.VisualizarPaisActivity"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:paddingHorizontal="20dp">
 
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/visualizar_bandeira" />
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/detalhes_pais"/>
+        android:id="@+id/visualizar_nome"
+        android:layout_marginTop="20dp"
+        android:textSize="20dp"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/visualizar_regiao"
+        android:textSize="15dp"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/visualizar_capital"
+        android:textSize="15dp"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/visualizar_codigo"
+        android:textSize="15dp"/>
+
 
 
 </LinearLayout>

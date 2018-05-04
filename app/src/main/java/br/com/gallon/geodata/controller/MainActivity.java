@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Spinner;
 
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 
 import br.com.gallon.geodata.R;
 import br.com.gallon.geodata.model.Pais;
+import br.com.gallon.geodata.model.PaisDb;
 import br.com.gallon.geodata.model.PaisNetwork;
 
 
@@ -43,11 +45,20 @@ public class MainActivity extends Activity {
 
         @Override
         protected ArrayList<Pais> doInBackground(String... strings) {
-            ArrayList<Pais> paises = new ArrayList<>();
-            try {
-                paises = PaisNetwork.buscarPaises(strings[0]);
-            } catch (IOException e) {
-                e.printStackTrace();
+
+            PaisDb db = new PaisDb(context);
+            ArrayList<Pais> paises = db.selecionaPaises();
+            if (paises == null || paises.isEmpty()) {
+                Log.d("PEDRO","Lista testá vazia");
+                try {
+                    paises = PaisNetwork.buscarPaises(strings[0]);
+
+                    db.inserePaises(paises);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }else{
+                Log.d("PEDRO","Lista testá preenchida");
             }
             return paises;
         }
